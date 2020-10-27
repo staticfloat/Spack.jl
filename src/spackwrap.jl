@@ -41,6 +41,6 @@ function spackify(project::String)
 
     # Activate the environment, install all of the packages
     with_spack_env(project_name) do env_dir
-        spack("install", spackify_jll.(jll_infos)..., "julia")
+        spack("install", spackify_jll.(jll_infos)..., "julia@$(VERSION)")
     end
 end

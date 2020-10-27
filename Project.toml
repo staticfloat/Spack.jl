@@ -1,0 +1,8 @@
+name = "Spack"
+uuid = "65999158-7ae2-4873-983f-f1ce9885a0f8"
+authors = ["Elliot Saba <staticfloat@gmail.com>"]
+version = "0.1.0"
+
+[deps]
+Scratch = "6c6a2e73-6563-6170-7368-637461726353"
+TOML = "fa267f1f-6049-4f14-aa54-33bafae1ed76"

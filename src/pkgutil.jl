@@ -20,6 +20,18 @@ function get_pkg_version(manifest::Dict, pkg_name::String)
     return strip_jll_version_weirdness(pkg["version"])
 end
 
+function get_pkg_uuid(manifest::Dict, pkg_name::String)
+    if !haskey(manifest, pkg_name)
+        return nothing
+    end
+    @assert length(manifest[pkg_name]) == 1
+    pkg = first(manifest[pkg_name])
+    if !haskey(pkg, "uuid")
+        return nothing
+    end
+    return pkg["uuid"]
+end
+
 function get_jlls(project_dir::String)
     project_path = joinpath(project_dir, "Project.toml")
     project = TOML.parsefile(project_path)
@@ -37,6 +49,12 @@ function get_jlls(project_dir::String)
         if version !== nothing
             jll_info["version"] = version
         end
+
+        uuid = get_pkg_uuid(manifest, jll_name)
+        if uuid !== nothing
+            jll_info["uuid"] = uuid
+        end
+
         push!(jll_infos, jll_info)
     end
     return jll_infos
